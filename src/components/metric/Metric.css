@@ -1,0 +1,20 @@
+.metric-first-child{
+    /* border: 2px solid red; */
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.metric-second-child{
+    /* border: 2px solid blue; */
+    padding: 10px;
+    width: 96%;
+}
+
+.bmiBbtn{
+    width: 100%;
+}
+
+#result{
+    text-align: center;
+}
