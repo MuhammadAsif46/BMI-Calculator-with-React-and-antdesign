@@ -1,0 +1,10 @@
+.imperial-first-child{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.imperial-second-child{
+    padding: 10px;
+    width: 96%;
+}

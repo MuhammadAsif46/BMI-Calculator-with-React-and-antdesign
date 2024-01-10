@@ -1,6 +1,6 @@
 import { Button, Input, Space, Progress } from "antd";
 import { red, green, yellow, blue, purple } from "@ant-design/colors";
-import "./Metric.css";
+import "./Imperial.css";
 import { useRef } from "react";
 import { useState } from "react";
 
@@ -8,27 +8,31 @@ const { Search } = Input;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-const Metric = () => {
+const Imperial = () => {
 
   // const [height, setHeight] = useState("")
   // const [inch, setInch] = useState("")
   // const [weight, setWeight] = useState("")
 
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState("")
   const [deg, setDeg] = useState("");
 
-  const heightCmInputRef = useRef(null);
-  const weightKgInputRef = useRef(null);
+  const heightFtInputRef = useRef(null);
+  const inchInputRef = useRef(null);
+  const weightPoundInputRef = useRef(null);
 
-  const calculateBmiHandler = () => {
-    let heightCmInput = heightCmInputRef.current.input.value;
-    let weightKgInput = weightKgInputRef.current.input.value;
-    console.log(heightCmInput);
-    console.log(weightKgInput);
+  const calculateBmiImperialHandler = () => {
+    let heightFtInput = heightFtInputRef.current.input.value;
+    let incheInput = inchInputRef.current.input.value;
+    let weightPoundInput = weightPoundInputRef.current.input.value;
+    console.log(heightFtInput);
+    console.log(incheInput);
+    console.log(weightPoundInput);
 
-    if (heightCmInput && weightKgInput) {
+    if (heightFtInput && incheInput && weightPoundInput) {
 
-      let bmi = (weightKgInput / ((heightCmInput * 0.01) * (heightCmInput * 0.01))).toFixed(2);
+      let bmi = ((weightPoundInput * 0.454) / ((( heightFtInput * 12 ) + inchInputRef ) * (( heightFtInput * 12 ) + inchInputRef ))) * 703;
+      console.log(bmi);
   
       if (bmi < 18.5) {
         setDeg("UnderWeight");
@@ -53,21 +57,38 @@ const Metric = () => {
 
   return (
 
-    <div className="Metric">
+    <div className="Imperial">
       <form>
-        <Space direction="vertical" className="metric-first-child">
+        <Space direction="vertical" className="imperial-first-child">
           <div>
-            <label htmlFor="cm" style={{ marginBottom: "10px" }}>
+            <label htmlFor="height">Height</label>
+            <br />
+            <br />
+            <Search
+              ref={heightFtInputRef}
+              id="height"
+              placeholder="Enter height in feet"
+              allowClear
+              enterButton="ft"
+              size="large"
+              onSearch={onSearch}
+              type="number"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="inches" style={{ marginBottom: "10px" }}>
               Inches
             </label>
             <br />
             <br />
             <Search
-              ref={heightCmInputRef}
-              id="cm"
-              placeholder="Enter height in cm"
+              ref={inchInputRef}
+              id="inches"
+              placeholder="Enter height in inches"
               allowClear
-              enterButton="cm"
+              enterButton="in"
               size="large"
               onSearch={onSearch}
               type="number"
@@ -76,17 +97,17 @@ const Metric = () => {
           </div>
         </Space>
 
-        <Space direction="vertical" className="metric-second-child">
+        <Space direction="vertical" className="imperial-second-child">
           <div>
             <label htmlFor="weight">Weight</label>
             <br />
             <br />
             <Search
-              ref={weightKgInputRef}
+              ref={weightPoundInputRef}
               id="Weight"
-              placeholder="Enter weight in kg"
+              placeholder="Enter weight in pound"
               allowClear
-              enterButton="kg"
+              enterButton="pound"
               size="large"
               onSearch={onSearch}
               type="number"
@@ -97,7 +118,7 @@ const Metric = () => {
         <br />
         <br />
         <div style={{ padding: "10px" }}>
-          <Button className="bmiBbtn" onClick={calculateBmiHandler} type="primary">
+          <Button className="bmiBbtn" onClick={calculateBmiImperialHandler} type="primary">
             Calculate BMI
           </Button>
         </div>
@@ -125,4 +146,4 @@ const Metric = () => {
   );
 };
 
-export default Metric;
+export default Imperial;
